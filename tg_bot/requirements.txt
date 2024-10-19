@@ -16,3 +16,5 @@ sentence-transformers
 gigachat
 seaborn
 openpyxl
+Pillow
+reportlab

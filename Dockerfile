@@ -1,21 +1,18 @@
-FROM python:3.11.9-bullseye
+# FROM nginx
 
-ENV LANG C.UTF-8
-ENV DEBIAN_FRONTEND noninteractive
+# WORKDIR /hackaton
 
-RUN apt-get update && apt -y upgrade && \
-    apt-get -y install software-properties-common apt-utils && \
-    apt-get -y install build-essential cmake unzip git wget curl tmux sysstat \
-    vim  libtool  &&\
-    apt-get clean &&\
-    apt-get autoremove &&\
-    rm -rf /var/lib/apt/lists/* &&\
-    rm -rf /var/cache/apt/archives/*
+# COPY ./index.html /hackaton/index.html
+# COPY ./about.html /hackaton/about.html
+# COPY ./vendors /hackaton/vendors
+# COPY ./jsme /hackaton/jsme
+# COPY ./images /hackaton/images
+# COPY ./fonts /hackaton/fonts
+# COPY ./css /hackaton/css
+# COPY ./js /hackaton/js
 
-# Install requirements
-COPY requirements.txt /tmp/requirements.txt
-RUN pip3 install -r /tmp/requirements.txt
+# EXPOSE 5000
 
-ENV PYTHONPATH $PYTHONPATH:/workdir
-
-WORKDIR /workdir
+FROM nginx:latest
+COPY default.conf /etc/nginx/nginx.conf
+EXPOSE 80

@@ -1,0 +1,19 @@
+{
+    "name": "my-webserver",
+    "version": "1.0.0",
+    "description": "This is a basic Python project that can be used as a starting point for any Data Science or AI projects.",
+    "main": "index.js",
+    "author": "",
+    "license": "ISC",
+    "directories": {
+        "doc": "docs",
+        "test": "tests"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "dependencies": {
+        "express": "^4.21.1"
+    }
+}

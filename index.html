@@ -1,358 +1,346 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns="http://www.w3.org/1999/html">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Pyatom's Predictor</title>
-	<link rel="stylesheet" href="vendors/feather/feather.css">
-	<link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
-	<link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css">
-	<link rel="stylesheet" href="vendors/typicons/typicons.css">
-	<link rel="stylesheet" href="vendors/simple-line-icons/css/simple-line-icons.css">
-	<link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
-	<link rel="stylesheet" href="css/vertical-layout-light/style.css">
-	<link rel="shortcut icon" href="images/favicon.png" />
-	<style>
-		.bold { font-weight: bold; }
-		small { font-size: 0.5em; }
-		.mol-container {
-			width: 100%;
-			height: 400px;
-			position: relative;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Voroge Jeskela RH</title>
+    <link rel="stylesheet" href="vendors/feather/feather.css" />
+    <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css" />
+    <link rel="stylesheet" href="vendors/typicons/typicons.css" />
+    <link
+      rel="stylesheet"
+      href="vendors/simple-line-icons/css/simple-line-icons.css"
+    />
+    <link rel="stylesheet" href="\vendors\css\vendor.bundle.base.css" />
+    <link rel="stylesheet" href="\css\vertical-layout-light\style.css" />
+    <link rel="shortcut icon" href="images\favicon.png" />
+    <style>
+      .bold {
+        font-weight: bold;
+      }
+
+      small {
+        font-size: 0.5em;
+      }
+
+      .mol-container {
+        width: 100%;
+        height: 400px;
+        position: relative;
+      }
+
+      .form-group {
+        margin-bottom: 0;
+      }
+
+		.upload-zone_dragover {
+			/* цвет фона */
+			background-color: hsl(254, 51%, 73%);
+			/* форма подстраивается под размеры элементов */
+			display: inline-flex;
+			/* центрируем внутренние элементы по горизонтали */
+			align-items: center;
+			/* центрируем элементы по вертикали */
+			justify-content: center;
+			margin: 250 px auto;
+			/* ширина */
+			width: 650px;
+			/* высота */
+			height: 250px;
+			/* внутренние отступы */
+			padding: 16px;
+			/* скругление рамки */
+			border-radius: 10px;
+			/* цвет текста */
+			color: #ffffff;
+			/* размер текста */
+			font-size: 24px;
+			/* тень с размытием */
+			box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.2);
 		}
-		.form-group {
-			margin-bottom: 0;
+		.upload-zone{
+			align-self: center;
+			text-align-last: center;
 		}
-	</style>
-</head>
-<body>
-<div class="container-scroller">
-	<nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
-		<div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
-			<div class="me-3">
-				<button class="navbar-toggler navbar-toggler align-self-center" type="button" data-bs-toggle="minimize">
-					<span class="icon-menu"></span>
-				</button>
-			</div>
-			<div>
-				<a class="navbar-brand brand-logo" href="index.html">Pyatom</a>
-				<a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo"/></a>
-			</div>
-		</div>
-		<div class="navbar-menu-wrapper d-flex align-items-top" style="padding-top: 30px !important; height: 97px !important; justify-content: space-between !important;">
-			<ul class="navbar-nav">
-				<li class="nav-item font-weight-semibold ms-0">
-					<h1 class="welcome-text"><span class="text-black fw-bold">Predictor</span></h1>
-					<h3 class="welcome-sub-text">Predict molecule's properties</h3>
-				</li>
-			</ul>
-			<button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-bs-toggle="offcanvas">
-				<span class="mdi mdi-menu"></span>
-			</button>
-		</div>
-	</nav>
-	<div class="container-fluid page-body-wrapper">
-		<nav class="sidebar sidebar-offcanvas" id="sidebar">
-			<ul class="nav">
-				<li class="nav-item active">
-					<a class="nav-link" href="index.html">
-						<i class="mdi mdi-molecule menu-icon"></i>
-						<span class="menu-title">Predict</span>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="about.html">
-						<i class="mdi mdi-thought-bubble-outline menu-icon"></i>
-						<span class="menu-title">About</span>
-					</a>
-				</li>
-			</ul>
-		</nav>
-		<div class="main-panel">
-			<div class="content-wrapper">
-				<div class="row">
-					<div class="col-md-auto grid-margin stretch-card">
-						<div class="card card-rounded">
-							<div class="card-body overflow-hidden">
-								<h4 class="card-title card-title-dash">2D-Editor</h4>
-								<p class="card-description">Edit molecule details</p>
-								<div class="row">
-									<div class="col-sm">
-										<div id="jsme_container"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md grid-margin stretch-card">
-						<div class="card card-rounded">
-							<div class="card-body pb-0">
-								<h4 class="card-title card-title-dash">3D-View</h4>
-								<p class="card-description">Explore molecule details</p>
-								<div class="row">
-									<div class="col-sm">
-										<div id="dmol_container" class="mol-container"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-lg-6 grid-margin stretch-card">
-						<div id="co2-status-card" class="card card-rounded">
-							<div class="card-body">
-								<h4 class="card-title card-title-dash">SMILES formula</h4>
-								<div class="form-group">
-									<label class="card-description" for="smiles">Resolver: cactus.nci.nih.gov/chemical/structure</label>
-									<input aria-multiline="true" id="smiles" name="smiles" class="form-control" type="text" placeholder="Paste formula here and press enter" value="">
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-2 grid-margin stretch-card">
-						<div id="IC50" class="card card-rounded visually-hidden">
-							<div class="card-body">
-								<h4 class="card-title card-title-dash text-capitalize" style="text-transform: none !important;">IC50</h4>
-								<p class="bold card-description">Less is better</p>
-								<h5 id="IC50_val" class="bold">0.32</h5>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-2 grid-margin stretch-card">
-						<div id="CC50" class="card card-rounded visually-hidden">
-							<div class="card-body">
-								<h4 class="card-title card-title-dash text-capitalize" style="text-transform: none !important;">CC50</h4>
-								<p class="bold card-description">More is better</p>
-								<h5 id="CC50_val" class="bold">0.32</h5>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-2 grid-margin stretch-card">
-						<div id="SI" class="card bg-inverse-success card-rounded visually-hidden">
-							<div class="card-body">
-								<h4 class="card-title card-title-dash text-white text-capitalize" style="text-transform: none !important;">SI</h4>
-								<p id="SI_desc" class="bold card-description">Safe</p>
-								<h5 id="SI_val" class="bold">0.32</h5>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<footer class="footer">
-	<div class="d-sm-flex justify-content-center justify-content-sm-between">
-		<span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Big thanks to each open-source project.</span>
-		<span class="text-muted text-center text-sm-left d-block d-sm-inline-block">GitHub <a href="https://github.com/mawerid/chemoinformatics_detection" target="_blank">repository</a></span>
-		<span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2023. All rights reserved.</span>
-	</div>
-</footer>
-<script src="vendors/js/vendor.bundle.base.js"></script>
-<script src="jsme/jsme.nocache.js"></script>
-<script src="js/3Dmol-min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
-<script src="https://unpkg.com/@rdkit/rdkit/dist/RDKit_minimal.js"></script>
-<script>
-	const RDKit = window.initRDKitModule();
-
-	const url_prefix = 'https://raw.githubusercontent.com/mawerid/chemoinformatics_detection/main';
-	const onnxModelIC = url_prefix + '/models/xgboost_IC.onnx';
-	const onnxModelSI = url_prefix + '/models/xgboost_SI.onnx';
-	const sessionOption = { executionProviders: ['wasm'] };
-	const ic_inferenceSession = ort.InferenceSession.create(onnxModelIC, sessionOption);
-	const si_inferenceSession = ort.InferenceSession.create(onnxModelSI, sessionOption);
-
-	const dmol_ = document.getElementById('dmol_container');
-	const dmolViewer = $3Dmol.createViewer(dmol_, {});
-
-	const smiles_ = document.getElementById('smiles');
-	smiles_.addEventListener("change", readInput)
-	$(smiles_).on("keyup",function wrapper(e) {
-		if(e.keyCode === 13) readInput(false);
-	});
-
-	let jsmeApplet;
-
-	window.mobileAndTabletCheck = function() {
-		let check = false;
-		(function (a) {
-			if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))) check = true;
-		})(navigator.userAgent || navigator.vendor || window.opera);
-		return check;
-	};
-	const isMobile = window.mobileAndTabletCheck();
-
-	const IC50 = { 'card': document.getElementById('IC50'), 'val': document.getElementById('IC50_val') };
-	const CC50 = { 'card': document.getElementById('CC50'), 'val': document.getElementById('CC50_val') };
-	const SI = { 'card': document.getElementById('SI'), 'desc': document.getElementById('SI_desc'), 'val': document.getElementById('SI_val') };
-
-	function setIC50(value) {
-		IC50.card.classList.remove('visually-hidden');
-		IC50.val.innerText = parseFloat(value).toFixed(4);
-	}
-
-	function setCC50(value) {
-		CC50.card.classList.remove('visually-hidden');
-		CC50.val.innerText = parseFloat(value).toFixed(4);
-	}
-
-	function setSI(value, lBorder, rBorder) {
-		SI.card.classList.remove('visually-hidden', 'bg-inverse-success', 'bg-inverse-warning', 'bg-danger');
-		SI.val.innerText = parseFloat(value).toFixed(4);
-		if (value < lBorder) {
-			SI.card.classList.add('bg-inverse-success');
-			SI.desc.innerText = 'Safe';
-		} else if (value > rBorder) {
-			SI.card.classList.add('bg-danger');
-			SI.desc.innerText = 'Danger';
-		} else {
-			SI.card.classList.add('bg-inverse-warning');
-			SI.desc.innerText = 'Unsafe';
+		/* область с кнопкой и подпись к ней */
+		.form-upload__label {
+			/* область занимает всю область элемента, внутри которого находится */
+			display: flex;
+			/* подпись к кнопке */
+			flex-direction: column;
+			/* центрируем внутренние элементы по горизонтали */
+			align-items: center;
 		}
-	}
+		/* подпись к кнопке */
+		.form-upload__title {
+			/* размер шрифта */
+			font-size: 16px;
+			/* насыщенность шрифта */
+			font-weight: 500;
+			/* шрифт */
+			font-family: Arial, sans-serif;
+			/* отступ над текстом */
+			margin-top: 8px;
+			/* отступ под текстом */
+			margin-bottom: 8px;
+		}
 
-	function parsePredict(data) {
-		const ics = data;
+		/* кнопка выбора файла */
+		.form-upload__label input[type="file"]::file-selector-button {
+			/* убираем рамку */
+			border: none;
+			/* скругляем углы */
+			border-radius: 8px;
+			/* размер шрифта */
+			font-size: 16px;
+			/* шрифт и его цвет */
+			font-family: Arial, sans-serif;
+			color: #000000;
+			/* внутренние отступы */
+			padding: 8px 16px;
+		}
 
-		const ic = ics['ic'];
-		const cc = ics['cc'];
-		const si = ics['si'];
+		/* цвет кнопки выбора файла при наведении на неё курсора */
+		.form-upload__label input[type="file"]::file-selector-button:hover {
+			background-color: #fd7f4a;
+		}
+		/* шрифт названия файла */
+		.form-upload__input {
+			/* шрифт */
+			font-family: Arial, sans-serif;
+			/* размер шрифта */
+			font-size: 16px;
+			padding-block: 30px;
+		}
 
-		if (ic) setIC50(ic);
-		if (cc) setCC50(cc);
-		if (si) setSI(si, 1, 2);
-	}
+		/* стили для кнопки отправки формы */
+		button[type="submit"] {
+			/* отступ над текстом */
+			margin-top: 8px;
+			/* цвет фона */
+			background-color: #c4c4c4;
+			/* цвет текста */
+			color: white;
+			/* внутренние отступы */
+			padding: 12px 20px;
+			/* убираем границу */
+			border: none;
+			border-radius: 8px;
+			/* размер шрифта */
+			font-size: 18px;
+			/* шрифт */
+			font-family: Arial, sans-serif;
+			/* цвет шрифта */
+			color: #000000;
+			/* курсор в виде указателя при наведении */
+			cursor: pointer;
+		}
 
-	function resetPredict() {
-		IC50.card.classList.add('visually-hidden');
-		CC50.card.classList.add('visually-hidden');
-		SI.card.classList.add('visually-hidden');
-	}
+		/* стили для кнопки отправки формы при наведении */
+		button[type="submit"]:hover {
+			/* цвет фона кнопки при наведении */
+			background-color: #d4fb51;
+		}
 
-	function getFeeds(smiles) {
-		RDKit.then(instance => instance.get_mol(smiles)).then(mol => {
-			if (!!mol) {
-				const allDescriptors = JSON.parse(mol.get_descriptors());
-				const dataIC = Float32Array.from([
-					0,
-					allDescriptors['CrippenMR'], // MolMR
-					0, // allDescriptors[''], // fr_bicyclic
-					0, // allDescriptors[''], // fr_NH1
-					0, // allDescriptors[''], // fr_methoxy
-					allDescriptors['lipinskiHBD'], // NHOHCount
-					0,
-					0
-				]);
-				const dataSI = Float32Array.from([
-					0,
-					allDescriptors['NumAliphaticHeterocycles'], // NumAliphaticHeterocycles
-					allDescriptors['CrippenMR'], // MolMR
-					0, // allDescriptors[''], // NumValenceElectrons
-					allDescriptors['lipinskiHBA'], // NOCount
-					0, // allDescriptors[''], // fr_pyridine
-					allDescriptors['NumRotatableBonds'], // NumRotatableBonds
-					0, // allDescriptors[''], // fr_ether
-				]);
-				getPredict(dataIC, dataSI);
+		/* стили для состояния, когда над формой держат файл */
+		.upload-zone_dragover._active {
+			/* цвет текста */
+			color: #000000;
+			/* цвет фона */
+			background-color: #d4fb51;
+		}
+    </style>
+  </head>
+
+  <body>
+    <div class="container-scroller">
+      <nav
+        class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row"
+      >
+        <div
+          class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start"
+        >
+          <div class="me-3">
+            <button
+              class="navbar-toggler navbar-toggler align-self-center"
+              type="button"
+              data-bs-toggle="minimize"
+            >
+              <span class="icon-menu"></span>
+            </button>
+          </div>
+          <div>
+            <a class="navbar-brand brand-logo" href="index.html">Menu</a>
+            <a class="navbar-brand brand-logo-mini" href="index.html"
+              ><img src="images/logo-mini.svg" alt="logo"
+            /></a>
+          </div>
+        </div>
+        <div
+          class="navbar-menu-wrapper d-flex align-items-top"
+          style="
+            padding-top: 30px !important;
+            height: 97px !important;
+            justify-content: space-between !important;
+          "
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item font-weight-semibold ms-0">
+              <h1 class="welcome-text">
+                <span class="text-black fw-bold">Voroge Jeskela</span>
+              </h1>
+              <h3 class="welcome-sub-text">HR helper</h3>
+            </li>
+          </ul>
+          <button
+            class="navbar-toggler navbar-toggler-right d-lg-none align-self-center"
+            type="button"
+            data-bs-toggle="offcanvas"
+          >
+            <span class="mdi mdi-menu"></span>
+          </button>
+        </div>
+      </nav>
+      <div class="container-fluid page-body-wrapper">
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">
+                <i class="mdi mdi-molecule menu-icon"></i>
+                <span class="menu-title">Load file</span>
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="about.html">
+                <i class="mdi mdi-thought-bubble-outline menu-icon"></i>
+                <span class="menu-title">How to</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <div class="main-panel">
+			<div id="uploadFile_Loader" class="upload-zone">
+				<form class="form-upload" id="uploadForm" action = "/index.html" method="post" contenttype="multipart/form-data">
+					<div class="upload-zone_dragover" id="govno" method="post">
+						<p>Drag file</p>
+					</div>
+					<label class="form-upload__label" for="uploadForm_file">
+						<input class="form-upload__input" id="uploadForm_File" method="post" type="file" name="file" accept=".csv, .xlsx"/>
+					</label>
+					<button type="submit" class="form-upload__submit">Send</button>
+				</form>
+				<div id="status"></div>
+			</div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="d-sm-flex justify-content-center justify-content-sm-between">
+        <span
+          class="text-muted text-center text-sm-left d-block d-sm-inline-block"
+          >Big thanks to each open-source project.</span
+        >
+        <span
+          class="text-muted text-center text-sm-left d-block d-sm-inline-block"
+          >GitHub
+          <a
+            href="https://github.com/Askash1234567890/Nuclear_IT_hack_2024_final"
+            target="_blank"
+            >repository</a
+          ></span
+        >
+        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"
+          >Copyright © 2024. All rights reserved.</span
+        >
+      </div>
+    </footer>
+    <script src="/vendors/js/vendor.bundle.base.js"></script>
+    <script src="/jsme/jsme.nocache.js"></script>
+    <script src="/js/off-canvas.js"></script>
+    <script src="/js/hoverable-collapse.js"></script>
+    <script src="/js/template.js"></script>
+	<script>
+		let dropArea = document.getElementById('govno');
+		let uploadForm = document.getElementById('uploadForm');
+		let statusDiv = document.getElementById('status');
+
+		// Prevent default drag behaviors
+		['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+			dropArea.addEventListener(eventName, preventDefaults, false);
+			document.body.addEventListener(eventName, preventDefaults, false);
+		});
+
+		['dragenter', 'dragover'].forEach(eventName => {
+			dropArea.addEventListener(eventName, highlight, false);
+		});
+
+		['dragleave', 'drop'].forEach(eventName => {
+			dropArea.addEventListener(eventName, unhighlight, false);
+		});
+
+		// Handle dropped files
+		dropArea.addEventListener('drop', handleDrop, false);
+
+		// Prevent default behaviors
+		function preventDefaults(e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+
+		function highlight() {
+			dropArea.classList.add('hover');
+		}
+
+		function unhighlight() {
+			dropArea.classList.remove('hover');
+		}
+
+		function handleDrop(e) {
+			let dt = e.dataTransfer;
+			let files = dt.files;
+			handleFiles(files);
+		}
+
+		function handleFiles(files) {
+			if (files.length > 0) {
+				let file = files[0];
+				if (validateFile(file)) {
+					uploadFile(file);
+				} else {
+					statusDiv.innerText = 'Ошибка: Пожалуйста, загрузите файл в формате CSV или XLSX.';
+				}
 			}
-		});
-	}
-
-	function getPredict(icData, siData) {
-		const icTensorX = new ort.Tensor('float32', icData, [1, 8]);
-		const icFeeds = {float_input: icTensorX}
-
-		const siTensorX = new ort.Tensor('float32', siData, [1, 8]);
-		const siFeeds = {float_input: siTensorX}
-
-		ic_inferenceSession.then(model => model.run(icFeeds))
-				.then(icResult => {
-					return {'ic': Math.abs(icResult.variable.data[0])}
-				})
-				.then(result => {
-					si_inferenceSession.then(model => model.run(siFeeds))
-							.then(siResult => {
-								result['si'] = Math.abs(siResult.variable.data[0]);
-								return result;
-							})
-							.then(result => {
-								result['cc'] = result['ic'] * result['si'];
-								return result;
-							})
-							.then(result => parsePredict(result));
-				});
-	}
-
-	function jsmeOnLoad() {
-		jsmeApplet = new JSApplet.JSME("jsme_container", "380px", "340px", {
-			"options": "newlook,marker,border,zoom,nozoomgui",
-			"guicolor": "#FFFFFF",
-			"guiAtomColor": "#1f3bb2"
-		});
-		jsmeApplet.setCallBack("AfterStructureModified", jsmeAppletOnChange);
-	}
-
-	function getSdfAndExec(smiles, func) {
-		const url = "https://cactus.nci.nih.gov/chemical/structure/"
-				+ encodeURI(smiles) + "/file?format=sdf";
-
-		$.ajax({url: url, crossDomain: true, success: func,
-			error: function (jqXHR, textStatus) {
-				console.error("Ajax error: " + textStatus);
-			}
-		});
-	}
-
-	function jsmeAppletOnChange(jsmeEvent) {
-		const jsme = jsmeEvent.src;
-		const smiles = jsme.smiles();
-		smiles_.value = smiles;
-		getSdfAndExec(smiles, updateDmol);
-		getFeeds(smiles);
-	}
-
-	function getRandomFloat(max = 1) {
-		return Math.random() * max;
-	}
-
-	function readInput(updateSmiles = true) {
-		const smiles = smiles_.value.trim();
-		if (smiles == null || smiles === '') return;
-		if (updateSmiles) {
-			resetPredict();
-			readAppletSmilesAsGenericMolecule(smiles);
 		}
-	}
 
-	function updateView(sdf) {
-		jsmeApplet.readGenericMolecularInput(sdf);
-		updateDmol(sdf);
-	}
+		function validateFile(file) {
+			const validExtensions = ['.csv', '.xlsx'];
+			const fileExtension = file.name.slice((file.name.lastIndexOf(".") - 1 >>> 0) + 2);
 
-	function updateDmol(sdf) {
-		dmolViewer.clear();
-		dmolViewer.addModel(sdf, 'sdf');
-		dmolViewer.setStyle({stick:{color:'lightgray', opacity:'1.0'}, sphere:{color:'gray', radius: 0.4}});
-		if (!isMobile) dmolViewer.spin('vy', 0.4);
-		dmolViewer.zoomTo();
-		dmolViewer.render();
-	}
+			return validExtensions.includes('.' + fileExtension.toLowerCase());
+		}
 
-	function readAppletSmilesAsGenericMolecule(smiles) {
-		//const isNotSdf = molecule && molecule.indexOf("M  END") === -1 && molecule.slice(0, 4) !== "$RXN";
-		getSdfAndExec(smiles, updateView);
-	}
+		function uploadFile(file) {
+		let formData = new FormData();
+		formData.append('file', file);
 
-
-</script>
-<script src="js/off-canvas.js"></script>
-<script src="js/hoverable-collapse.js"></script>
-<script src="js/template.js"></script>
-</body>
+		fetch('/index.html', {
+		method: 'POST',
+		body: formData
+		})
+		.then(response => {
+		console.log('Response status:', response.status); // Log response status
+		return response.json(); // Attempt to parse JSON
+		})
+		.then(data => {
+		console.log('Response data:', data); // Log response data
+		document.getElementById('status').innerText = 'Файл загружен: ' + data.message;
+		})
+		.catch(error => {
+		console.error('Error:', error); // Log any errors
+		document.getElementById('status').innerText = 'Ошибка: ' + error.message;
+		});
+		}
+	</script>
+  </body>
 </html>

@@ -53,7 +53,7 @@ async def get_personal_statistic(request: PersonalStatisticRequest):
 
 @app.post("/get_graphics")
 async def get_graphics():
-    """Generate graphics for the loaded data.
+    """Generate graphics for the loaded data. And generate PDF file with the graphics.
 
     :return: Success message
     """

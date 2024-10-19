@@ -1,7 +1,7 @@
 [tool.ruff]
 line-length = 109
 src = ["src", "scripts"]
-extend-exclude = ["data/"]
+extend-exclude = ["data/", "*.ipynb"]
 target-version = "py311"
 
 [tool.ruff.lint]

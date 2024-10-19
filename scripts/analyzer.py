@@ -1,3 +1,4 @@
+import os
 import re
 from typing import Dict, List, Tuple
 
@@ -7,11 +8,14 @@ import pandas as pd
 import seaborn as sns
 import pymorphy2
 import matplotlib.pyplot as plt
+from PIL import Image
 from tqdm import tqdm
 from gigachat import GigaChat
 from nltk.corpus import stopwords
 from sklearn.cluster import KMeans, kmeans_plusplus
+from reportlab.pdfgen import canvas
 from sentence_transformers import SentenceTransformer
+from reportlab.lib.pagesizes import A4
 
 from scripts.grad_search import GradSearch
 
@@ -49,6 +53,7 @@ class ExitInterviewAnalyzer:
         :param words: List of words to clean
         :return: List of cleaned words
         """
+        assert words is not None, 'Firstly, you need loaded data'
         nltk.download('stopwords')
         stopwords_ru = stopwords.words("russian")
 
@@ -318,6 +323,50 @@ class ExitInterviewAnalyzer:
             ans_info = self._describe_emotion(words)
             self.get_bar_statistic(ans_info, column_name, question_num)
             self.get_pie_statistic(ans_info, column_name, question_num)
+
+        n = len(list(self.answers_data.columns))
+        images_paths = [f'{type}_{i}.png' for i in range(n) for type in ('bar', 'pie')]
+        self.get_pdf_report(image_paths=images_paths)
+
+    @staticmethod
+    def get_pdf_report(image_paths, output_pdf='statistics.pdf', image_per_page=2):
+        """Generate a PDF report from the given image paths.
+
+        :param image_paths: List of paths to the images
+        :param output_pdf: Name of the output PDF file
+        :param image_per_page: Number of images per page
+        """
+        Image.MAX_IMAGE_PIXELS = None
+
+        c = canvas.Canvas(output_pdf, pagesize=A4)
+        page_width, page_height = A4
+
+        for i in range(0, len(image_paths), image_per_page):
+            for j in range(image_per_page):
+                index = i + j
+                if index >= len(image_paths):
+                    break
+
+                img = Image.open(image_paths[index])
+
+                img_width = page_width - 100
+                img_height = img.height * (img_width / img.width)
+
+                if img_height > (page_height - 100) / image_per_page:
+                    img_height = (page_height - 100) / image_per_page
+                    img_width = img.width * (img_height / img.height)
+
+                img_x = (page_width - img_width) / 2
+                img_y = page_height - (j + 1) * img_height - 60
+
+                img.save(f"temp_image_{index}.png")
+                c.drawImage(f"temp_image_{index}.png", img_x, img_y, width=img_width, height=img_height)
+
+            c.showPage()
+        c.save()
+
+        for index in range(len(image_paths)):
+            os.remove(f"temp_image_{index}.png")
 
     def get_personal_statistic(self, id: int) -> str:
         """Get personal statistics for a given ID.

@@ -16,13 +16,15 @@
 - [API Endpoints](#api-endpoints)
 - [Структура проекта](#структура-проекта)
 - [Лицензия](#лицензия)
+- [Docker](#docker)
+- [Запуск Telegram бота](#запуск-telegram-бота)
 
 ## Установка
 
 1. Клонируйте репозиторий:
     ```sh
-    git clone https://github.com/yourusername/exit-interview-analyzer.git
-    cd exit-interview-analyzer
+    git clone https://github.com/Askash1234567890/Nuclear_IT_hack_2024_final.git
+    cd Nuclear_IT_hack_2024_final
     ```
 
 2. Создайте виртуальное окружение и активируйте его:
@@ -91,5 +93,38 @@
 ## Лицензия
 
 Этот проект лицензирован по лицензии MIT. См. файл [LICENSE](LICENSE) для получения подробной информации.
+
+## Docker
+
+Для запуска проекта с использованием Docker выполните следующие шаги:
+
+1. Постройте Docker образ:
+    ```sh
+    docker build -t exit-interview-analyzer .
+    ```
+
+2. Запустите контейнер:
+    ```sh
+    docker run -p 8000:80 exit-interview-analyzer
+    ```
+
+## Запуск Telegram бота
+
+Для запуска Telegram бота выполните следующие шаги:
+
+1. Перейдите в директорию `tg_bot`:
+    ```sh
+    cd tg_bot
+    ```
+
+2. Постройте Docker образ для Telegram бота:
+    ```sh
+    docker build -t tg-bot .
+    ```
+
+3. Запустите контейнер:
+    ```sh
+    docker run -d tg-bot
+    ```
 
 ```

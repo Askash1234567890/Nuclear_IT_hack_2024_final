@@ -14,6 +14,7 @@ fastapi==0.112.2
 pydantic==2.9.2
 reportlab==3.6.13
 pillow==10.4.0
+pyclustering==0.10.1.2
 # Dev tools
 mypy==1.11.2
 pytest==7.4.4

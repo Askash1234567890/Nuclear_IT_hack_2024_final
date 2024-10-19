@@ -4,6 +4,14 @@ scipy==1.13.1
 scikit-learn==1.5.1
 matplotlib==3.9.2
 notebook==7.2.2
+pymorphy2==0.9.1
+sentence_transformers==3.2.0
+gigachat==0.1.35
+tqdm==4.66.5
+nltk==3.9.1
+seaborn==0.13.2
+fastapi==0.112.2
+pydantic==2.9.2
 # Dev tools
 mypy==1.11.2
 pytest==7.4.4

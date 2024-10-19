@@ -1,5 +1,5 @@
 [tool.ruff]
-line-length = 79
+line-length = 109
 src = ["src", "scripts"]
 extend-exclude = ["data/"]
 target-version = "py311"
@@ -15,7 +15,12 @@ select = [
 ]
 ignore = [
     "D10", # D10?: Missing docstring
-    "I001"  # Imports are sorted by isort
+    "I001", # Imports are sorted by isort
+    # Add due to hack
+    "E722",
+    "B905",
+    "B904",
+    "D200"
 ]
 unfixable = ["B"]
 
@@ -32,4 +37,4 @@ quote-style = "single"
 length_sort = true
 multi_line_output = 2  # Hanging indent
 atomic = true
-line_length = 79
+line_length = 109

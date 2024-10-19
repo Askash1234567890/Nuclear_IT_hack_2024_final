@@ -12,6 +12,7 @@ __pycache__/
 .idea/
 .devcontainer/
 .mypy_cache/
+.ruff_cashe/
 
 # Hydra outputs
 **/outputs/

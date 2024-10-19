@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/html">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Voroge Jeskela RH</title>
+    <link rel="stylesheet" href="vendors/feather/feather.css" />
+    <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css" />
+    <link rel="stylesheet" href="vendors/typicons/typicons.css" />
+    <link
+      rel="stylesheet"
+      href="vendors/simple-line-icons/css/simple-line-icons.css"
+    />
+    <link rel="stylesheet" href="\vendors\css\vendor.bundle.base.css" />
+    <link rel="stylesheet" href="\css\vertical-layout-light\style.css" />
+    <link rel="shortcut icon" href="images\favicon.png" />
+    <style>
+      .bold {
+        font-weight: bold;
+      }
+
+      small {
+        font-size: 0.5em;
+      }
+
+      .mol-container {
+        width: 100%;
+        height: 400px;
+        position: relative;
+      }
+
+      .form-group {
+        margin-bottom: 0;
+      }
+
+		.upload-zone_dragover {
+			/* цвет фона */
+			background-color: hsl(254, 51%, 73%);
+			/* форма подстраивается под размеры элементов */
+			display: inline-flex;
+			/* центрируем внутренние элементы по горизонтали */
+			align-items: center;
+			/* центрируем элементы по вертикали */
+			justify-content: center;
+			margin: 250 px auto;
+			/* ширина */
+			width: 650px;
+			/* высота */
+			height: 250px;
+			/* внутренние отступы */
+			padding: 16px;
+			/* скругление рамки */
+			border-radius: 10px;
+			/* цвет текста */
+			color: #ffffff;
+			/* размер текста */
+			font-size: 24px;
+			/* тень с размытием */
+			box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.2);
+		}
+		.upload-zone{
+			align-self: center;
+			text-align-last: center;
+		}
+		/* область с кнопкой и подпись к ней */
+		.form-upload__label {
+			/* область занимает всю область элемента, внутри которого находится */
+			display: flex;
+			/* подпись к кнопке */
+			flex-direction: column;
+			/* центрируем внутренние элементы по горизонтали */
+			align-items: center;
+		}
+		/* подпись к кнопке */
+		.form-upload__title {
+			/* размер шрифта */
+			font-size: 16px;
+			/* насыщенность шрифта */
+			font-weight: 500;
+			/* шрифт */
+			font-family: Arial, sans-serif;
+			/* отступ над текстом */
+			margin-top: 8px;
+			/* отступ под текстом */
+			margin-bottom: 8px;
+		}
+
+		/* кнопка выбора файла */
+		.form-upload__label input[type="file"]::file-selector-button {
+			/* убираем рамку */
+			border: none;
+			/* скругляем углы */
+			border-radius: 8px;
+			/* размер шрифта */
+			font-size: 16px;
+			/* шрифт и его цвет */
+			font-family: Arial, sans-serif;
+			color: #000000;
+			/* внутренние отступы */
+			padding: 8px 16px;
+		}
+
+		/* цвет кнопки выбора файла при наведении на неё курсора */
+		.form-upload__label input[type="file"]::file-selector-button:hover {
+			background-color: #fd7f4a;
+		}
+		/* шрифт названия файла */
+		.form-upload__input {
+			/* шрифт */
+			font-family: Arial, sans-serif;
+			/* размер шрифта */
+			font-size: 16px;
+			padding-block: 30px;
+		}
+
+		/* стили для кнопки отправки формы */
+		button[type="submit"] {
+			/* отступ над текстом */
+			margin-top: 8px;
+			/* цвет фона */
+			background-color: #c4c4c4;
+			/* цвет текста */
+			color: white;
+			/* внутренние отступы */
+			padding: 12px 20px;
+			/* убираем границу */
+			border: none;
+			border-radius: 8px;
+			/* размер шрифта */
+			font-size: 18px;
+			/* шрифт */
+			font-family: Arial, sans-serif;
+			/* цвет шрифта */
+			color: #000000;
+			/* курсор в виде указателя при наведении */
+			cursor: pointer;
+		}
+
+		/* стили для кнопки отправки формы при наведении */
+		button[type="submit"]:hover {
+			/* цвет фона кнопки при наведении */
+			background-color: #d4fb51;
+		}
+
+		/* стили для состояния, когда над формой держат файл */
+		.upload-zone_dragover._active {
+			/* цвет текста */
+			color: #000000;
+			/* цвет фона */
+			background-color: #d4fb51;
+		}
+    </style>
+  </head>
+
+  <body>
+    <div class="container-scroller">
+      <nav
+        class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row"
+      >
+        <div
+          class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start"
+        >
+          <div class="me-3">
+            <button
+              class="navbar-toggler navbar-toggler align-self-center"
+              type="button"
+              data-bs-toggle="minimize"
+            >
+              <span class="icon-menu"></span>
+            </button>
+          </div>
+          <div>
+            <a class="navbar-brand brand-logo" href="index.html">Menu</a>
+            <a class="navbar-brand brand-logo-mini" href="index.html"
+              ><img src="images/logo-mini.svg" alt="logo"
+            /></a>
+          </div>
+        </div>
+        <div
+          class="navbar-menu-wrapper d-flex align-items-top"
+          style="
+            padding-top: 30px !important;
+            height: 97px !important;
+            justify-content: space-between !important;
+          "
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item font-weight-semibold ms-0">
+              <h1 class="welcome-text">
+                <span class="text-black fw-bold">Voroge Jeskela</span>
+              </h1>
+              <h3 class="welcome-sub-text">HR helper</h3>
+            </li>
+          </ul>
+          <button
+            class="navbar-toggler navbar-toggler-right d-lg-none align-self-center"
+            type="button"
+            data-bs-toggle="offcanvas"
+          >
+            <span class="mdi mdi-menu"></span>
+          </button>
+        </div>
+      </nav>
+      <div class="container-fluid page-body-wrapper">
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">
+                <i class="mdi mdi-molecule menu-icon"></i>
+                <span class="menu-title">Load file</span>
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="about.html">
+                <i class="mdi mdi-thought-bubble-outline menu-icon"></i>
+                <span class="menu-title">How to</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <div class="main-panel">
+			<div id="uploadFile_Loader" class="upload-zone">
+				<form class="form-upload" id="uploadForm" action = "/index.html" method="post" contenttype="multipart/form-data">
+					<div class="upload-zone_dragover" id="govno" method="post">
+						<p>Drag file</p>
+					</div>
+					<label class="form-upload__label" for="uploadForm_file">
+						<input class="form-upload__input" id="uploadForm_File" method="post" type="file" name="file" accept=".csv, .xlsx"/>
+					</label>
+					<button type="submit" class="form-upload__submit">Send</button>
+				</form>
+				<div id="status"></div>
+			</div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="d-sm-flex justify-content-center justify-content-sm-between">
+        <span
+          class="text-muted text-center text-sm-left d-block d-sm-inline-block"
+          >Big thanks to each open-source project.</span
+        >
+        <span
+          class="text-muted text-center text-sm-left d-block d-sm-inline-block"
+          >GitHub
+          <a
+            href="https://github.com/Askash1234567890/Nuclear_IT_hack_2024_final"
+            target="_blank"
+            >repository</a
+          ></span
+        >
+        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"
+          >Copyright © 2024. All rights reserved.</span
+        >
+      </div>
+    </footer>
+    <script src="/vendors/js/vendor.bundle.base.js"></script>
+    <script src="/jsme/jsme.nocache.js"></script>
+    <script src="/js/off-canvas.js"></script>
+    <script src="/js/hoverable-collapse.js"></script>
+    <script src="/js/template.js"></script>
+	<script>
+		let dropArea = document.getElementById('govno');
+		let uploadForm = document.getElementById('uploadForm');
+		let statusDiv = document.getElementById('status');
+
+		// Prevent default drag behaviors
+		['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+			dropArea.addEventListener(eventName, preventDefaults, false);
+			document.body.addEventListener(eventName, preventDefaults, false);
+		});
+
+		['dragenter', 'dragover'].forEach(eventName => {
+			dropArea.addEventListener(eventName, highlight, false);
+		});
+
+		['dragleave', 'drop'].forEach(eventName => {
+			dropArea.addEventListener(eventName, unhighlight, false);
+		});
+
+		// Handle dropped files
+		dropArea.addEventListener('drop', handleDrop, false);
+
+		// Prevent default behaviors
+		function preventDefaults(e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+
+		function highlight() {
+			dropArea.classList.add('hover');
+		}
+
+		function unhighlight() {
+			dropArea.classList.remove('hover');
+		}
+
+		function handleDrop(e) {
+			let dt = e.dataTransfer;
+			let files = dt.files;
+			handleFiles(files);
+		}
+
+		function handleFiles(files) {
+			if (files.length > 0) {
+				let file = files[0];
+				if (validateFile(file)) {
+					uploadFile(file);
+				} else {
+					statusDiv.innerText = 'Ошибка: Пожалуйста, загрузите файл в формате CSV или XLSX.';
+				}
+			}
+		}
+
+		function validateFile(file) {
+			const validExtensions = ['.csv', '.xlsx'];
+			const fileExtension = file.name.slice((file.name.lastIndexOf(".") - 1 >>> 0) + 2);
+
+			return validExtensions.includes('.' + fileExtension.toLowerCase());
+		}
+
+		function uploadFile(file) {
+		let formData = new FormData();
+		formData.append('file', file);
+
+		fetch('/index.html', {
+		method: 'POST',
+		body: formData
+		})
+		.then(response => {
+		console.log('Response status:', response.status); // Log response status
+		return response.json(); // Attempt to parse JSON
+		})
+		.then(data => {
+		console.log('Response data:', data); // Log response data
+		document.getElementById('status').innerText = 'Файл загружен: ' + data.message;
+		})
+		.catch(error => {
+		console.error('Error:', error); // Log any errors
+		document.getElementById('status').innerText = 'Ошибка: ' + error.message;
+		});
+		}
+	</script>
+  </body>
+</html>

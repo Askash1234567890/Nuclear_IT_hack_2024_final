@@ -1,56 +1,54 @@
-# Exit Interview Analyzer
+# Анализатор Exit Interview
 
-This project provides a FastAPI-based web service for analyzing exit interview data. It includes functionalities for
-loading data, preprocessing, clustering, generating statistics, and creating visual graphics.
+Этот проект предоставляет веб-сервис на основе FastAPI для анализа данных exit interview. Он включает функции для
+загрузки данных, предварительной обработки, кластеризации, генерации статистики и создания визуальных графиков.
 
-## Table of Contents
+## Содержание
 
-- [Installation](#installation)
-- [Usage](#usage)
+- [Установка](#установка)
+- [Использование](#использование)
 - [API Endpoints](#api-endpoints)
-- [Project Structure](#project-structure)
-- [License](#license)
+- [Структура проекта](#структура-проекта)
+- [Лицензия](#лицензия)
 
-## Installation
+## Установка
 
-1. Clone the repository:
+1. Клонируйте репозиторий:
     ```sh
     git clone https://github.com/yourusername/exit-interview-analyzer.git
     cd exit-interview-analyzer
     ```
 
-2. Create a virtual environment and activate it:
+2. Создайте виртуальное окружение и активируйте его:
     ```sh
     python -m venv venv
-    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+    source venv/bin/activate  # В Windows используйте `venv\Scripts\activate`
     ```
 
-3. Install the required dependencies:
+3. Установите необходимые зависимости:
     ```sh
     pip install -r requirements.txt
     ```
 
-## Usage
+## Использование
 
-1. Start the FastAPI server:
+1. Запустите сервер FastAPI:
     ```sh
     uvicorn scripts.api:app --reload
     ```
 
-2. Open your browser and navigate to `http://127.0.0.1:8000/docs` to access the interactive API documentation.
+2. Откройте браузер и перейдите по адресу `http://127.0.0.1:8000/docs`, чтобы получить доступ к интерактивной
+   документации API.
 
 ## API Endpoints
 
-- **POST /load_data**: Load data into the analyzer.
-- **POST /preprocess**: Preprocess the given words.
-- **POST /clustering**: Perform clustering on the given words.
-- **POST /get_statistic**: Get statistics for the given words.
-- **POST /get_personal_statistic**: Get personal statistics for a given ID.
-- **POST /get_graphics**: Generate graphics for the loaded data.
+- **POST /load_data**: Загрузить данные в анализатор.
+- **POST /get_personal_statistic**: Получить личную статистику по заданному ID.
+- **POST /get_graphics**: Сгенерировать графики для загруженных данных.
 
-### Example Requests
+### Пр��меры запросов
 
-- **Load Data**
+- **Загрузить данные**
     ```sh
     curl -X 'POST' \
       'http://127.0.0.1:8000/load_data' \
@@ -61,7 +59,7 @@ loading data, preprocessing, clustering, generating statistics, and creating vis
     }'
     ```
 
-- **Preprocess Data**
+- **Предварительная обработка данных**
     ```sh
     curl -X 'POST' \
       'http://127.0.0.1:8000/preprocess' \
@@ -72,13 +70,20 @@ loading data, preprocessing, clustering, generating statistics, and creating vis
     }'
     ```
 
-## Project Structure
+## Структура проекта
 
 ```plaintext
 .
 ├── scripts/
-│   ├── api.py                # FastAPI application
-│   ├── analyzer.py           # Analyzer class with data processing methods
-│   ├── grad_search.py        # Gradient search implementation
-├── requirements.txt          # Project dependencies
-└── README.md                 # Project documentation
+│   ├── api.py                # Приложение FastAPI
+│   ├── analyzer.py           # Класс анализатора с методами обработки данных
+│   ├── grad_search.py        # Реализация градиентного поиска
+├── requirements.txt          # Зависимости проекта
+└── README.md                 # Документация проекта
+```
+
+## Лицензия
+
+Этот проект лицензирован по лицензии MIT. См. файл [LICENSE](LICENSE) для получения подробно�� информации.
+
+```

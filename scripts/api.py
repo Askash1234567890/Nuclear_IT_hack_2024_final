@@ -37,48 +37,6 @@ async def load_data(request: LoadDataRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@app.post("/preprocess")
-async def preprocess(request: AnalyzeRequest):
-    """Preprocess the given words.
-
-    :param request: AnalyzeRequest object containing the words to be preprocessed
-    :return: Cleaned data
-    """
-    try:
-        clean_data = analyzer.preprocessing_data(request.words)
-        return {"clean_data": clean_data.tolist()}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@app.post("/clustering")
-async def clustering(request: AnalyzeRequest):
-    """Perform clustering on the given words.
-
-    :param request: AnalyzeRequest object containing the words to be clustered
-    :return: Clusters and number of clusters
-    """
-    try:
-        df, n_clusters = analyzer.clustering(request.words)
-        return {"clusters": df.to_dict(), "n_clusters": n_clusters}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@app.post("/get_statistic")
-async def get_statistic(request: AnalyzeRequest):
-    """Get statistics for the given words.
-
-    :param request: AnalyzeRequest object containing the words to get statistics for
-    :return: Statistics
-    """
-    try:
-        stats = analyzer.get_statistic(request.words)
-        return {"statistics": stats}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-
 @app.post("/get_personal_statistic")
 async def get_personal_statistic(request: PersonalStatisticRequest):
     """Get personal statistics for a given ID.
